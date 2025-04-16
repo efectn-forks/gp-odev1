@@ -7,12 +7,41 @@ namespace WinFormsApp3
     public partial class Form1 : Form
     {
         private ImageList horoscopeImageList = new ImageList();
+        private AppDbContext db = new AppDbContext();
 
         public Form1()
         {
             InitializeComponent();
             InitializeImages();
             listView1.SmallImageList = horoscopeImageList;
+            this.Load += new System.EventHandler(Form1_Load);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            db.Database.EnsureCreated();
+
+            var people = db.Persons.ToList();
+            foreach (var person in people)
+            {
+                var horoscope = Horoscopes.GetHoroscope(person.BirthDate.Day, person.BirthDate.Month);
+                var vki = CalculateVKI(person.Weight, person.Height);
+
+                var item = new ListViewItem
+                {
+                    Text = $"{person.Name} {person.Surname}",
+                    ImageKey = horoscope.ToString()
+                };
+
+                item.SubItems.Add($"{person.BirthDate.Day}/{person.BirthDate.Month}/{person.BirthDate.Year}");
+                item.SubItems.Add($"{person.Height} cm / {person.Weight} kg");
+                item.SubItems.Add($"{vki:F2}");
+                item.SubItems.Add(GetVkiComment(vki));
+                item.SubItems.Add(horoscope.ToString());
+                item.SubItems.Add(Horoscopes.HoroscopeInterpretation(horoscope));
+                listView1.Items.Add(item);
+            }
+
         }
 
         private void InitializeImages()
@@ -62,6 +91,19 @@ namespace WinFormsApp3
                 Text = $"{name} {surname}",
                 ImageKey = horoscope.ToString()
             };
+
+            var person = new Person
+            {
+                Name = name,
+                Surname = surname,
+                BirthDate = birthDate,
+                Height = height,
+                Weight = weight,
+            };
+
+            db.Persons.Add(person);
+            db.SaveChanges();
+
 
             item.SubItems.Add($"{birthDate.Day}/{birthDate.Month}/{birthDate.Year}");
             item.SubItems.Add($"{height} cm / {weight} kg");
