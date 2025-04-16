@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\akrep.png" />
+    <None Remove="Resources\aslan.png" />
+    <None Remove="Resources\balik.png" />
+    <None Remove="Resources\basak.png" />
+    <None Remove="Resources\boga.png" />
+    <None Remove="Resources\ikizler.png" />
+    <None Remove="Resources\koc.png" />
+    <None Remove="Resources\kova.png" />
+    <None Remove="Resources\oglak.png" />
+    <None Remove="Resources\terazi.png" />
+    <None Remove="Resources\yay.png" />
+    <None Remove="Resources\yengec.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\akrep.png" />
+    <EmbeddedResource Include="Resources\aslan.png" />
+    <EmbeddedResource Include="Resources\balik.png" />
+    <EmbeddedResource Include="Resources\basak.png" />
+    <EmbeddedResource Include="Resources\boga.png" />
+    <EmbeddedResource Include="Resources\ikizler.png" />
+    <EmbeddedResource Include="Resources\koc.png" />
+    <EmbeddedResource Include="Resources\kova.png" />
+    <EmbeddedResource Include="Resources\oglak.png" />
+    <EmbeddedResource Include="Resources\terazi.png" />
+    <EmbeddedResource Include="Resources\yay.png" />
+    <EmbeddedResource Include="Resources\yengec.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\res.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>res.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\res.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>res.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
